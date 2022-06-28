@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3photos",
+  "policyUUID": "33209131",
+  "bucketName": "amplifyapp627a43f3c5de4245b86415494ab70326",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
