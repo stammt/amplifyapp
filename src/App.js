@@ -21,6 +21,32 @@ function App() {
     fetchNotes();
     getMsg();
   }, []);
+
+  function getStrava() {
+    fetch("https://www.strava.com/api/v3/athlete",
+     {
+      headers: {
+        'Authorization': 'Bearer NOPE'
+      }
+     }).then(res => res.json())
+     .then(
+      (result) => {
+        console.log(result)
+        setMsg('strava result' + result.username)
+        // this.setState({
+        //   isLoaded: true,
+        //   items: result.items
+        // });
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        this.setMsg('strava error');
+      }
+    )
+  }
+  
   function getMsg() {
     let customerId = 1 // e.input
     console.log("getMsg")
