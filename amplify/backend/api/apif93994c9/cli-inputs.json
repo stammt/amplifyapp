@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/notes/{noteId}": {
+      "name": "/notes/{noteId}",
+      "lambdaFunction": "NoteHandler",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

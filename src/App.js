@@ -7,13 +7,38 @@ import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } fr
 
 const initialFormState = { name: '', description: '' }
 
+const myAPI = "apif93994c9"
+const path = '/notes'; 
+
 function App() {
   const [notes, setNotes] = useState([]);
+  const [msg, setMsg] = useState("not yet")
   const [formData, setFormData] = useState(initialFormState);
+
+    //Function to fetch from our backend and update customers array
 
   useEffect(() => {
     fetchNotes();
+    getMsg();
   }, []);
+  function getMsg() {
+    let customerId = 1 // e.input
+    console.log("getMsg")
+    setMsg("getting")
+    API.get(myAPI, path + "/1")
+       .then(response => {
+         console.log(response)
+        //  let newCustomers = [...customers]
+        //  newCustomers.push(response)
+        //  setCustomers(newCustomers)
+        setMsg(response)
+       })
+       .catch(error => {
+         console.log(error)
+         setMsg("error")
+       })
+  }
+
 
   async function fetchNotes() {
     const apiData = await API.graphql({ query: listNotes });
@@ -56,6 +81,7 @@ function App() {
   return (
     <div className="App">
       <h1>My Notes App</h1>
+      <h2>message {msg}</h2>
       <input
         onChange={e => setFormData({ ...formData, 'name': e.target.value})}
         placeholder="Note name"
