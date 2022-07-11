@@ -18,7 +18,7 @@
       "function": {
         "NoteHandler": {
           "deploymentBucketName": "amplify-amplifyc0979feaa2874-staging-194723-deployment",
-          "s3Key": "amplify-builds/NoteHandler-68485262705846536c57-build.zip"
+          "s3Key": "amplify-builds/NoteHandler-64677a4731316c55502f-build.zip"
         }
       }
     }

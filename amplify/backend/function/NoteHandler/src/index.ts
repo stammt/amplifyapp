@@ -1,6 +1,14 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from 'aws-lambda';
 import { DynamoDB } from "aws-sdk";
-import fetch from 'node-fetch'
+// import fetch from 'node-fetch'
+
+// API_AMPLIFYAPP_GRAPHQLAPIENDPOINTOUTPUT
+// API_AMPLIFYAPP_GRAPHQLAPIIDOUTPUT
+// API_AMPLIFYAPP_GRAPHQLAPIKEYOUTPUT
+// API_AMPLIFYAPP_NOTETABLE_ARN
+// API_AMPLIFYAPP_NOTETABLE_NAME
+// AUTH_AMPLIFYAPPCDC172C4_USERPOOLID
+// STORAGE_S3PHOTOS_BUCKETNAME
 
 const documentClient = new DynamoDB.DocumentClient();
 
@@ -15,6 +23,13 @@ const stravaUsersTableName = `strava_users-${apiGraphQLAPIIdOutput}-${environmen
     console.log(`EVENT: ${JSON.stringify(event)}`);
     console.log(`table name: ${stravaUsersTableName}`)
 
+    const authProvider = event.requestContext.identity.cognitoAuthenticationProvider;
+    if (!authProvider) {
+        console.log("no auth")
+    } else {
+        console.log(`auth provider: ${authProvider}`)   
+    }
+
     const user = await documentClient.get({
         TableName: "strava_users",
         Key: { "username": "tomstamm" },
@@ -24,16 +39,16 @@ const stravaUsersTableName = `strava_users-${apiGraphQLAPIIdOutput}-${environmen
 
     const token = user.Item ? user.Item["accesstoken"] : "none"
 
-    const response = await fetch("https://www.strava.com/api/v3/athlete",
-        {
-            headers: {
-            'Authorization': `Bearer ${token}`
-            }
-        }
-    );
-    console.log(`response: ${response.ok} ${response.statusCode} ${response.statusText}`)
-    const athlete = await response.json()
-    console.log(`athlete: ${JSON.stringify(athlete)}`)
+    // const response = await fetch("https://www.strava.com/api/v3/athlete",
+    //     {
+    //         headers: {
+    //         'Authorization': `Bearer ${token}`
+    //         }
+    //     }
+    // );
+    // console.log(`response: ${response.ok} ${response.statusCode} ${response.statusText}`)
+    // const athlete = await response.json()
+    // console.log(`athlete: ${JSON.stringify(athlete)}`)
 
     return {
         statusCode: 200,

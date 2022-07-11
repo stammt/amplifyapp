@@ -71,12 +71,26 @@
       "service": "Lambda",
       "dependsOn": [
         {
+          "category": "auth",
+          "resourceName": "amplifyappcdc172c4",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
           "category": "api",
           "resourceName": "amplifyapp",
           "attributes": [
             "GraphQLAPIIdOutput",
             "GraphQLAPIEndpointOutput",
             "GraphQLAPIKeyOutput"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "s3photos",
+          "attributes": [
+            "BucketName"
           ]
         }
       ]

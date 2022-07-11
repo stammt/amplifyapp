@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { API, Storage } from 'aws-amplify';
+import { API, Storage, Auth } from 'aws-amplify';
 import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react';
 import { listNotes } from './graphql/queries';
 import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from './graphql/mutations';
@@ -47,11 +47,26 @@ function App() {
     )
   }
   
-  function getMsg() {
+  async function getMsg() {
     let customerId = 1 // e.input
+
+    Auth.currentSession().then(res=>{
+      let accessToken = res.getAccessToken()
+      let jwt = accessToken.getJwtToken()
+      //You can print them to see the full objects
+      console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
+      console.log(`myJwt: ${jwt}`)
+    })
+
+    const myInit = { 
+      headers: { 
+        "Authorization": `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}`,
+      },
+    };
+
     console.log("getMsg")
-    setMsg("getting")
-    API.get(myAPI, path + "/1")
+    setMsg(`getting with token ${myInit}`)
+    API.get(myAPI, path + "/1", myInit)
        .then(response => {
          console.log(response)
         //  let newCustomers = [...customers]

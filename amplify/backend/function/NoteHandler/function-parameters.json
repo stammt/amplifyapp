@@ -1,9 +1,22 @@
 {
   "lambdaLayers": [],
   "permissions": {
+    "auth": {
+      "amplifyappcdc172c4": [
+        "read"
+      ]
+    },
     "api": {
       "amplifyapp": [
         "Query"
+      ]
+    },
+    "storage": {
+      "s3photos": [
+        "read"
+      ],
+      "Note:@model(appsync)": [
+        "read"
       ]
     }
   }
